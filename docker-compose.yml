@@ -20,7 +20,7 @@ services:
     image: webdevops/php:7.4
     container_name: laravel_project_php
     command: |
-                     bash -c "ls -l && ls -l ./app && apt-get update && apt-get install -y procps && supervisord"
+                    bash -c "ls -l && ls -l ./app && apt-get update && apt-get install -y procps && supervisord"
     volumes:
       - "./:/app"
     working_dir: '/app'
