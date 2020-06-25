@@ -17,7 +17,7 @@ class CreatePostsTable extends Migration
             $table->id();
             $table->longText('description');
             $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('comment_id');
+            $table->unsignedBigInteger('comment_id')->nullable();
             $table->timestamps();
         });
 

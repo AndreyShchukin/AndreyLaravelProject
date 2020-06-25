@@ -2,3 +2,15 @@
     text-align: center;
 }
 
+.newpost {
+    border-radius: 5px;
+}
+
+.submitpost {
+    text-align: center;
+    margin: 10px;
+}
+
+.pagination {
+
+}

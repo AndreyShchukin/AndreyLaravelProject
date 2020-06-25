@@ -12,7 +12,7 @@ class User extends Authenticatable
     use Notifiable;
 
     protected $fillable = [
-        'name', 'email', 'password', 'role_id'
+        'name', 'email', 'password', 'is_admin',
     ];
 
     protected $hidden = [
@@ -23,13 +23,8 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function role()
-    {
-        return $this->belongsTo(Role::class);
-    }
-
     public function isAdmin()
     {
-        return $this->role->name == 'admin';
+        return $this->is_admin;
     }
 }
