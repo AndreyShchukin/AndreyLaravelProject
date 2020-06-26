@@ -17,11 +17,11 @@ class PostController extends Controller
 
     public function create()
     {
-        $post = new Post();
-        $post->description->input('text');
-        $post->user_id = Auth::user()->id;
-        $post->save();
-        return redirect()->route('posts');
+//        $post = new Post();
+//        $post->description->('text');
+//        $post->user_id = Auth::user()->id;
+//        $post->save();
+//        return redirect()->route('posts');
 
     }
 
