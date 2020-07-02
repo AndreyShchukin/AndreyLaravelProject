@@ -20,7 +20,7 @@ class CommentController extends Controller
 
     public function index():View
     {
-        $comments = Comment::paginate(15);
+        $comments = Comment::get()->paginate(5);
         return view('posts/{id}', compact('comments'));
     }
 
@@ -37,6 +37,7 @@ class CommentController extends Controller
             $this->CommentServices->createComment(
                 $request->validated(),
                 $request->user()
+
             );
 
             return redirect()->route('posts');

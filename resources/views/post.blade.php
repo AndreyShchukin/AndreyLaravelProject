@@ -20,10 +20,13 @@
                         @else
                             <h2>There is no comments. You may be the first!</h2>
                         @endif
+{{--                        <div class="pagination justify-content-center">--}}
+{{--                            {{$comment->links()}}--}}
+{{--                        </div>--}}
                         <div class="footer">
                             <form name="FormComment" action="/posts/{{$post->id}}/addComment" enctype="multipart/form-data" method="post" >
+                                <input class="form-control" type="hidden" name="post_id" value="{{$post->id}}" >
                                 @csrf
-                                <input hidden class="form-control" type="text" name="post_id" value="{{$post->id}}" >
                                 <div>
                                     <textarea class="form-control textarea_comment" id="exampleFormControlTextarea1" name="text" required placeholder="Add your comment"></textarea>
                                 </div>
