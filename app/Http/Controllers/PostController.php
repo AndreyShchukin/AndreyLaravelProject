@@ -38,13 +38,14 @@ class PostController extends Controller
             $request->user()
         );
 
-        header('Location: /posts');
+        return redirect()->route('posts');
 
     }
 
     public function show($id)
     {
         return view('post', ['post' => Post::findOrFail($id)]);
+
     }
 
     public function edit(Post $post)
@@ -61,4 +62,5 @@ class PostController extends Controller
     {
 
     }
+
 }

@@ -9,5 +9,6 @@ $factory->define(Comment::class, function (Faker $faker) {
         return [
             'text' => $faker->text,
             'user_id' => random_int(1,100),
+            'post_id' => random_int(1,100),
         ];
 });
