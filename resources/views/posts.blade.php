@@ -4,15 +4,22 @@
         <div class="row">
             @foreach($posts as $post)
                 <div class="posts col-md-4">
-                    <div class="card" style="width: 18rem;">
-                        <img class="card-img-top" src="{{URL::asset('/image/like.svg')}}" alt="image">
+                    <div class="card post_card" style="width: 18rem;">
+                        <img class="card-img-top" src="/img/cat.jpg" alt="image">
                         <div class="card-body">
                             <p class="card-text">{{$post->description}}</p>
                         </div>
-                        <div class="card-body">
-                            <img class="card-img-bottom" src="{{URL::asset('/image/like.svg')}}" alt="like">
-                            <a href="#" class="card-link" id="openModal">leave a comment</a>
+                        <div class="footer">
+                            <div class="card-body footer_post">
+                                <div>
+                                    <a href="#" class="card-link" id="openModal">leave a comment</a>
+                                </div>
+                                <div>
+                                    <img class="card-img-bottom like_button" src="/img/heart.png" alt="like">
+                                </div>
+                            </div>
                         </div>
+
                     </div>
                 </div>
             @endforeach
@@ -34,11 +41,11 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="{{ route('add-post') }}" enctype="multipart/form-data" method="post" >
+                <form action="{{ route('/posts/add') }}" enctype="multipart/form-data" method="post" >
                     @csrf
                     <div>
                         <label for="exampleFormControlTextarea1">Please, add your post</label>
-                        <input class="form-control" id="exampleFormControlTextarea1" name="text">
+                        <textarea class="form-control" id="exampleFormControlTextarea1" name="description"></textarea>
                     </div>
                     <div>
                         <label for="exampleFormControlFile1">You can load your image</label>

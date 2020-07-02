@@ -2,31 +2,43 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Post\StorePost;
 use App\Models\Post;
+use App\Services\PostServices;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
+use phpDocumentor\Reflection\Location;
 
 class PostController extends Controller
 {
+    private $PostServices;
+
+    public function __construct(PostServices $PostServices)
+    {
+        return $this->PostServices = $PostServices;
+    }
+
     public function index():View
     {
-        $posts = Post::paginate(5);
+        $posts = Post::paginate(15);
         return view('posts', compact('posts'));
     }
 
     public function create()
     {
-//        $post = new Post();
-//        $post->description->('text');
-//        $post->user_id = Auth::user()->id;
-//        $post->save();
-//        return redirect()->route('posts');
+
 
     }
 
-    public function store(Request $request)
+    public function store(StorePost $request)
     {
+            $this->PostServices->createPost(
+            $request->validated(),
+            $request->user()
+        );
+
+        header('Location: /posts');
 
     }
 

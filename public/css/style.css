@@ -11,6 +11,19 @@
     margin: 10px;
 }
 
-.pagination {
+.like_button {
+    width: 20px;
+    height: 20px;
+}
 
+.footer_post {
+    display: flex;
+    justify-content: space-around;
+}
+
+.post_card {
+    height: 450px;
+    background-color: #d3d9df;
+    padding: 10px;
+    margin: 20px;
 }
