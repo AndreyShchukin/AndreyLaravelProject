@@ -27,4 +27,5 @@ class StorePost extends FormRequest
             'description' => ['required', 'min:26', 'max:2048'],
         ];
     }
+
 }

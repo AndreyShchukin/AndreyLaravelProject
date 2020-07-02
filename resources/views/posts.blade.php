@@ -4,15 +4,16 @@
         <div class="row">
             @foreach($posts as $post)
                 <div class="posts col-md-4">
-                    <div class="card post_card" style="width: 18rem;">
+                    <div class="card post_card">
                         <img class="card-img-top" src="/img/cat.jpg" alt="image">
                         <div class="card-body">
                             <p class="card-text">{{$post->description}}</p>
+                            <p class="card-text">{{$post->user_id}}</p>
                         </div>
                         <div class="footer">
                             <div class="card-body footer_post">
                                 <div>
-                                    <a href="#" class="card-link" id="openModal">leave a comment</a>
+                                    <a href="posts/{{$post->id}}">Leave a comment</a>
                                 </div>
                                 <div>
                                     <img class="card-img-bottom like_button" src="/img/heart.png" alt="like">
@@ -35,24 +36,23 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title" id="myModalLabel">New post</h4>
+                <h4 class="modal-title" id="myModalLabel">{{ Auth::user()->name }}, add your post, please</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form action="{{ route('/posts/add') }}" enctype="multipart/form-data" method="post" >
+                <form name="myForm" action="{{ route('/posts/add') }}" enctype="multipart/form-data" method="post" onsubmit="return validateForm()" >
                     @csrf
                     <div>
-                        <label for="exampleFormControlTextarea1">Please, add your post</label>
-                        <textarea class="form-control" id="exampleFormControlTextarea1" name="description"></textarea>
+                        <textarea name="fname" class="form-control textarea_post" id="exampleFormControlTextarea1" name="description" required placeholder="Minimum 26 symbols" minlength="26" maxlength="2048"></textarea>
                     </div>
                     <div>
                         <label for="exampleFormControlFile1">You can load your image</label>
                         <input type="file" class="form-control-file" id="exampleFormControlFile1">
                     </div>
                     <div>
-                        <button type="submit" class="btn btn-primary submitpost">Submit</button>
+                        <button value="Submit" type="submit" class="btn btn-primary submitpost">Submit</button>
                     </div>
                 </form>
             </div>

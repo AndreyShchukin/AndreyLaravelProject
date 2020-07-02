@@ -17,13 +17,13 @@ class CreatePostsTable extends Migration
             $table->id();
             $table->longText('description');
             $table->unsignedBigInteger('user_id');
-//            $table->unsignedBigInteger('comment_id')->nullable();
+            $table->char('user_name');
             $table->timestamps();
         });
 
         Schema::table('posts', function (Blueprint $table) {
             $table->foreign('user_id')->references('id')->on('users');
-//            $table->foreign('comment_id')->references('id')->on('comments');
+            $table->foreign('user_name')->references('name')->on('users');
         });
     }
 

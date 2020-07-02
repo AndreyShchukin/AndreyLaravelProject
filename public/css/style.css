@@ -27,3 +27,18 @@
     padding: 10px;
     margin: 20px;
 }
+
+.post_card_id{
+    background-color: #d3d9df;
+    padding: 10px;
+    margin: 20px;
+}
+
+.textarea_post:valid {
+    border: 2px solid black;
+}
+
+
+.textarea_post:invalid {
+    border: 2px solid red;
+}
