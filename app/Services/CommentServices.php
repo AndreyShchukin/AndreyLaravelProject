@@ -10,11 +10,10 @@ use Illuminate\Support\Arr;
 
 class CommentServices {
 
-    public function createComment(array $data, User $user): Comment
+    public function createComment(array $data): Comment
     {
         $comment = new Comment();
         $comment->text = Arr::get($data, 'text');
-        $comment->user_id = $user->id;
         $comment->save();
         return $comment;
     }

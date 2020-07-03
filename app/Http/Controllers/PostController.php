@@ -35,7 +35,8 @@ class PostController extends Controller
     {
             $this->PostServices->createPost(
             $request->validated(),
-            $request->user()
+            $request->user(),
+            $request->file('image')->store('uploads', 'public')
         );
 
         return redirect()->route('posts');

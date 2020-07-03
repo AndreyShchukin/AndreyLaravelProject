@@ -13,8 +13,8 @@
                         @if($post && $post->comments)
                         @foreach($post->comments as $comment)
                         <div class="card-body">
-                            <p class="card-text">User:{{$comment->user_id}}</p>
-                            <p class="card-text">{{$comment->text}}</p>
+                            <p class="card-text">USER: @if(Auth::check()) @if(!$comment->user_id) Anonymous @endif {{$comment->user_id}} @else Anonymous @endif </p>
+                            <p class="card-text">COMMENT:@if(Auth::check()) {{$comment->text}} @else Please login or register to see the comments @endif</p>
                         </div>
                         @endforeach
                         @else

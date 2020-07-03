@@ -25,7 +25,6 @@ class StoreComment extends FormRequest
     {
         return [
             'text' => ['required', 'min:26', 'max:2048'],
-            'post_id' => ['required'],
         ];
     }
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Comment;
+use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use App\Services\CommentServices;
@@ -35,9 +36,7 @@ class CommentController extends Controller
     {
         {
             $this->CommentServices->createComment(
-                $request->validated(),
-                $request->user()
-
+                $request->validated()
             );
 
             return redirect()->route('posts');

@@ -9,7 +9,7 @@ use Illuminate\Support\Arr;
 
 class PostServices {
 
-    public function createPost(array $data, User $user): Post
+    public function createPost(array $data, User $user, $image = null): Post
     {
         $post = new Post();
         $post->description = Arr::get($data, 'description');
