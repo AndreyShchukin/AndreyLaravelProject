@@ -17,13 +17,12 @@
                                     <a href="posts/{{$post->id}}">Leave a comment</a>
                                 </div>
                                 <div>
-                                    <img class="card-img-bottom like_button" src="/img/heart.png" alt="like">
-                                    <span class="badge badge-info">Info</span>
+                                    <img class="ico_{{$post->id}}" src="@if($post['liked_by_me'])heart.png @else heart(1).png @endif" style="cursor:pointer; width:20px;" onclick="setLike({{$post->id}})">
+                                    <span class="badge badge-info likes_count_{{$post->id}}">{{$post['likes']}}</span>
                                 </div>
                             </div>
                             <p class="card-text">Users id: {{$post->user_id}}</p>
                         </div>
-
                     </div>
                 </div>
             @endforeach
@@ -61,6 +60,26 @@
             </div>
         </div>
     </div>
+
+    <script>
+            function setLike(postId) {
+                let src = $(".ico_" + postId).attr('src').trim();
+                if (src === "heart.png") {
+                    //disliked
+                    $(".ico_" + postId).attr('src', 'heart(1).png');
+                    // likesCount--;
+                } else {
+                    //liked
+                    $(".ico_" + postId).attr('src', 'heart.png');
+                    // likesCount++;
+                }
+                // $(".likes_count_" + postId).text(likesCount);
+                $.post("/posts/", function (res) {
+                    console.log(res);
+                })
+            }
+
+    </script>
 @stop
 
 

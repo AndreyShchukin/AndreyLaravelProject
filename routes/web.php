@@ -23,3 +23,4 @@ Route::get('posts/{id}', 'PostController@show')->name('post_id');
 
 Route::post('posts/{id}/addComment', 'CommentController@store')->name('add_comment');
 
+Route::post('/posts', 'PostController@like')->name('like');

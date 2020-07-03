@@ -6,6 +6,7 @@ use App\Http\Requests\Post\StorePost;
 use App\Models\Post;
 use App\Services\PostServices;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 use phpDocumentor\Reflection\Location;
@@ -19,10 +20,12 @@ class PostController extends Controller
         return $this->PostServices = $PostServices;
     }
 
-    public function index():View
+    public function index(Request $request):View
     {
-        $posts = Post::paginate(15);
-        return view('posts', compact('posts'));
+//        $posts = Post::paginate(15);
+//        return view('posts', compact('posts'));
+
+        return view('posts', ['posts' => $this->PostServices->getPosts($request->user())]);
     }
 
     public function create()
@@ -62,6 +65,15 @@ class PostController extends Controller
     public function destroy(Post $post)
     {
 
+    }
+
+    public function like(int $postId, Request $request)
+    {
+        if (!($user = $request->user())) {
+            return response()->json(['error' => true, 'message' => "Unauth!"], Response::HTTP_UNAUTHORIZED);
+        }
+
+        return response()->json(['status' => $this->PostServices->setLike($postId, $user)]);
     }
 
 }
