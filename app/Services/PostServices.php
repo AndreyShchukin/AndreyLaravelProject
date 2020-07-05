@@ -2,27 +2,29 @@
 namespace App\Services;
 
 
+use App\Http\Requests\Post\StorePost;
 use App\Models\Post;
 use App\User;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class PostServices {
 
+
     public function createPost(array $data, User $user, $image = null): Post
     {
-        $post = new Post();
-        $post->description = Arr::get($data, 'description');
-        $post->user_id = $user->id;
-        $post->save();
-        return $post;
+        $posts = new Post();
+        $posts->text = Arr::get($data, 'text');
+        $posts->user_id = $user->id;
+        $posts->save();
+        return $posts;
     }
 
-    public function getPosts(?User $user = null): array
+    public function getPosts(?User $user = null)
     {
-        $posts =  Post::query()->with('likes')->get()->toArray();
-
+        $posts =  Post::query()->with('likes')->paginate(15);
         foreach ($posts as &$post) {
             $count = 0;
             $iLiked = false;
@@ -51,14 +53,16 @@ class PostServices {
             ->first();
 
         if (!is_null($like)) {
-            DB::table('post_likes')->where('user_id', $user->id)
+            DB::table('post_likes')
+                ->where('user_id', $user->id)
                 ->where('post_id', $postId)
                 ->delete();
 
             return false;
         }
 
-        DB::table('post_likes')->insert([
+        DB::table('post_likes')
+            ->insert([
             'user_id' => $user->id,
             'post_id' => $postId
         ]);

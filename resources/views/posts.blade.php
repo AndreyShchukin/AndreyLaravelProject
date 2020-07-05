@@ -1,6 +1,7 @@
 @extends('layouts.app')
 @section('content')
     <div class="container">
+        <span>Show the popular posts!</span><a class="sort_button" href="posts/sorted">Show</a>
         <div class="row">
             @foreach($posts as $post)
                 <div class="posts col-md-4">
@@ -9,19 +10,21 @@
                         <img class="card-img-top" src={{ asset('/storage/' . $path) }} alt="image">
                         @endisset
                         <div class="card-body">
-                            <p class="card-text">{{$post->description}}</p>
+                            <p class="card-text">{{$post['text']}}</p>
                         </div>
                         <div class="footer">
                             <div class="card-body footer_post">
                                 <div>
-                                    <a href="posts/{{$post->id}}">Leave a comment</a>
+                                    <a href="posts/{{$post['id']}}">Leave a comment</a>
                                 </div>
+                                @if(Auth::check())
                                 <div>
-                                    <img class="ico_{{$post->id}}" src="@if($post['liked_by_me'])heart.png @else heart(1).png @endif" style="cursor:pointer; width:20px;" onclick="setLike({{$post->id}})">
-                                    <span class="badge badge-info likes_count_{{$post->id}}">{{$post['likes']}}</span>
+                                    <img class="ico_{{$post['id']}}" src="@if($post['liked_by_me'])like.png @else nolike.png @endif" style="cursor:pointer; width:20px;" onclick="setLike({{$post['id']}})">
+                                    <span class="badge badge-info likes_count_{{$post['id']}}">{{$post['likes']}}</span>
                                 </div>
+                                @endif
                             </div>
-                            <p class="card-text">Users id: {{$post->user_id}}</p>
+                            <p class="card-text">Users id: {{$post['user_id']}}</p>
                         </div>
                     </div>
                 </div>
@@ -44,7 +47,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form name="myForm" action="{{ route('/posts/add') }}" enctype="multipart/form-data" method="post" >
+                <form name="myForm" action="{{route('/posts/add')}}" enctype="multipart/form-data" method="post" >
                     @csrf
                     <div>
                         <textarea class="form-control textarea_post" id="exampleFormControlTextarea1" name="description" required placeholder="Minimum 26 symbols" minlength="26" maxlength="2048"></textarea>
@@ -61,25 +64,26 @@
         </div>
     </div>
 
-    <script>
-            function setLike(postId) {
+        <script>
+            function setLike(postId)
+            {
                 let src = $(".ico_" + postId).attr('src').trim();
-                if (src === "heart.png") {
+                let likesCount = parseInt($(".likes_count_" + postId).text());
+                if (src === "nolike.png") {
                     //disliked
-                    $(".ico_" + postId).attr('src', 'heart(1).png');
-                    // likesCount--;
+                    $(".ico_" + postId).attr('src', 'like.png');
+                    likesCount++;
                 } else {
                     //liked
-                    $(".ico_" + postId).attr('src', 'heart.png');
-                    // likesCount++;
+                    $(".ico_" + postId).attr('src', 'nolike.png');
+                    likesCount--;
                 }
-                // $(".likes_count_" + postId).text(likesCount);
-                $.post("/posts/", function (res) {
+                $(".likes_count_" + postId).text(likesCount);
+                $.post("/posts/" + postId + '/like', function (res) {
                     console.log(res);
                 })
             }
-
-    </script>
+        </script>
 @stop
 
 

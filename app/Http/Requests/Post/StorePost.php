@@ -24,7 +24,7 @@ class StorePost extends FormRequest
     public function rules(): array
     {
         return [
-            'description' => ['required', 'min:26', 'max:2048'],
+            'text' => ['required', 'min:26', 'max:2048'],
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
        ];
     }

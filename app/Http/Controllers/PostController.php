@@ -8,6 +8,7 @@ use App\Services\PostServices;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 use phpDocumentor\Reflection\Location;
 
@@ -22,9 +23,6 @@ class PostController extends Controller
 
     public function index(Request $request):View
     {
-//        $posts = Post::paginate(15);
-//        return view('posts', compact('posts'));
-
         return view('posts', ['posts' => $this->PostServices->getPosts($request->user())]);
     }
 
@@ -34,19 +32,18 @@ class PostController extends Controller
 
     }
 
-    public function store(StorePost $request)
+    public function store(StorePost $request): View
     {
-            $this->PostServices->createPost(
+        $post = $this->PostServices->createPost(
             $request->validated(),
             $request->user(),
-            $request->file('image')->store('uploads', 'public')
+            $request->file('image')
         );
 
-        return redirect()->route('posts');
-
+        return view('posts');
     }
 
-    public function show($id)
+    public function show($id): View
     {
         return view('post', ['post' => Post::findOrFail($id)]);
 
@@ -75,5 +72,6 @@ class PostController extends Controller
 
         return response()->json(['status' => $this->PostServices->setLike($postId, $user)]);
     }
+
 
 }

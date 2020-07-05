@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Comment;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 use App\Services\CommentServices;
 use App\Http\Requests\Comment\StoreComment;
@@ -21,29 +22,27 @@ class CommentController extends Controller
 
     public function index():View
     {
-        $comments = Comment::get()->paginate(5);
-        return view('posts/{id}', compact('comments'));
+        return view('posts/{id}', ['comments' => $this->CommentServices->getComments()]);
+
     }
 
 
     public function create()
     {
-        //
+
     }
 
 
-    public function store(StoreComment $request)
+    public function store(Request $request)
     {
-        {
-            $this->CommentServices->createComment(
-                $request->validated()
-            );
+        $comment = new Comment;
+        $comment->text = $request->get('text');
+        $comment->user()->associate($request->user());
+        $post = Post::find($request->get('post_id'));
+        $post->comments()->save($comment);
 
-            return redirect()->route('posts');
-
-        }
+        return back();
     }
-
 
     public function show(Comment $comment)
     {

@@ -24,8 +24,10 @@ class StoreComment extends FormRequest
     public function rules(): array
     {
         return [
-            'text' => ['required', 'min:26', 'max:2048'],
-        ];
+            'text' => ['min:26', 'max:2048'],
+            'user_id' => ['required'],
+            'post_id' => ['required']
+            ];
     }
 
 }

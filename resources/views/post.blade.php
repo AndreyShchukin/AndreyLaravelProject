@@ -17,8 +17,6 @@
                             <p class="card-text">COMMENT:@if(Auth::check()) {{$comment->text}} @else Please login or register to see the comments @endif</p>
                         </div>
                         @endforeach
-                        @else
-                            <h2>There is no comments. You may be the first!</h2>
                         @endif
                         <div class="footer">
                             <form name="FormComment" action="/posts/{{$post->id}}/addComment" enctype="multipart/form-data" method="post" >
