@@ -21,6 +21,6 @@ Route::post('posts/{id}/addComment', 'CommentController@store')->name('add_comme
 
 Route::post('/posts/{post_id}/like', 'PostController@like')->name('like');
 
-Route::post('/posts/add', 'PostController@store')->name('/posts/add')->middleware('auth');
+Route::post('/posts/addPost', 'PostController@store')->name('/posts/add')->middleware('auth');
 
-Route::resource('comments', 'CommentsController');
+Route::get('/posts/sorted','PostController@popularpost')->name('popularpost');

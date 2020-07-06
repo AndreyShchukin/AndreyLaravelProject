@@ -3,6 +3,7 @@ namespace App\Services;
 
 
 use App\Http\Requests\Post\StorePost;
+use App\Models\Comment;
 use App\Models\Post;
 use App\User;
 use Illuminate\Database\Eloquent\Collection;
@@ -13,13 +14,14 @@ use Illuminate\Support\Facades\DB;
 class PostServices {
 
 
-    public function createPost(array $data, User $user, $image = null): Post
+    public function createPost($data, User $user, $image = null): Post
     {
-        $posts = new Post();
-        $posts->text = Arr::get($data, 'text');
-        $posts->user_id = $user->id;
-        $posts->save();
-        return $posts;
+        $post = new Post();
+        $post->text = Arr::get($data, 'text');
+        $post->user_id = $user->id;
+        $post->save();
+
+        return $post;
     }
 
     public function getPosts(?User $user = null)
@@ -69,6 +71,8 @@ class PostServices {
 
         return true;
     }
+
+
 
 
 }

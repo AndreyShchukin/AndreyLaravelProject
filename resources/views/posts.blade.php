@@ -50,7 +50,7 @@
                 <form name="myForm" action="{{route('/posts/add')}}" enctype="multipart/form-data" method="post" >
                     @csrf
                     <div>
-                        <textarea class="form-control textarea_post" id="exampleFormControlTextarea1" name="description" required placeholder="Minimum 26 symbols" minlength="26" maxlength="2048"></textarea>
+                        <textarea class="form-control textarea_post" id="exampleFormControlTextarea1" name="text" required placeholder="Minimum 26 symbols" minlength="26" maxlength="2048"></textarea>
                     </div>
                     <div>
                         <label for="exampleFormControlFile1">You can load your image</label>
@@ -84,6 +84,8 @@
                 })
             }
         </script>
+
+
 @stop
 
 

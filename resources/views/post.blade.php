@@ -6,14 +6,14 @@
                     <div class="card post_card_id">
                         <img class="card-img-top image_post" src="/img/cat.jpg" alt="image">
                         <div class="card-body">
-                            <p class="card-text">{{$post->description}}</p>
+                            <p class="card-text">{{$post->text}}</p>
                             <p class="card-text">{{$post->id}}</p>
                         </div>
                         <p><h1>COMMENTS:</h1></p>
                         @if($post && $post->comments)
                         @foreach($post->comments as $comment)
                         <div class="card-body">
-                            <p class="card-text">USER: @if(Auth::check()) @if(!$comment->user_id) Anonymous @endif {{$comment->user_id}} @else Anonymous @endif </p>
+                            <p class="card-text">USER WITH ID: @if(Auth::check()) @if(!$comment->user_id) Anonymous @endif {{$comment->user_id}} @else Anonymous @endif </p>
                             <p class="card-text">COMMENT:@if(Auth::check()) {{$comment->text}} @else Please login or register to see the comments @endif</p>
                         </div>
                         @endforeach

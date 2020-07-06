@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
@@ -19,6 +20,14 @@ class Post extends Model
       return $this->hasMany(PostLike::class);
 
   }
+
+  public function users()
+  {
+      return $this->belongsTo(User::class);
+
+  }
+
+
 
 
 }

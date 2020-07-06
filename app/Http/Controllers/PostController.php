@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Post\StorePost;
+use App\Models\Comment;
 use App\Models\Post;
+use App\User;
 use App\Services\PostServices;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -11,6 +13,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 use phpDocumentor\Reflection\Location;
+use Illuminate\Http\JsonResponse;
 
 class PostController extends Controller
 {
@@ -21,7 +24,7 @@ class PostController extends Controller
         return $this->PostServices = $PostServices;
     }
 
-    public function index(Request $request):View
+    public function index(Request $request): View
     {
         return view('posts', ['posts' => $this->PostServices->getPosts($request->user())]);
     }
@@ -32,15 +35,15 @@ class PostController extends Controller
 
     }
 
-    public function store(StorePost $request): View
+    public function store(StorePost $request)
     {
-        $post = $this->PostServices->createPost(
+            $this->PostServices->createPost(
             $request->validated(),
             $request->user(),
             $request->file('image')
         );
 
-        return view('posts');
+        return back();
     }
 
     public function show($id): View
@@ -72,6 +75,10 @@ class PostController extends Controller
 
         return response()->json(['status' => $this->PostServices->setLike($postId, $user)]);
     }
+
+
+
+
 
 
 }
