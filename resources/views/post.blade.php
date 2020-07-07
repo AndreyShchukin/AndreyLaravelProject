@@ -4,7 +4,9 @@
         <div class="row">
                 <div class="posts">
                     <div class="card post_card_id">
-                        <img class="card-img-top image_post" src="/img/cat.jpg" alt="image">
+                        @isset($post['image'])
+                            <img class="card-img-top" src={{ asset('/storage/' . $post['image']) }} alt="image">
+                        @endisset
                         <div class="card-body">
                             <p class="card-text">{{$post->text}}</p>
                             <p class="card-text">{{$post->id}}</p>

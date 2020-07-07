@@ -25,6 +25,7 @@ class PostController extends Controller
     }
 
     public function index(Request $request): View
+
     {
         return view('posts', ['posts' => $this->PostServices->getPosts($request->user())]);
     }

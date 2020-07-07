@@ -73,6 +73,12 @@ class PostServices {
         return true;
     }
 
+    public function popular_post()
+    {
+        $posts =  Post::query()->with('likes')->paginate(15);
+
+    }
+
 
 
 

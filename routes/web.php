@@ -23,4 +23,6 @@ Route::post('/posts/{post_id}/like', 'PostController@like')->name('like');
 
 Route::post('/posts/addPost', 'PostController@store')->name('/posts/add')->middleware('auth');
 
-Route::get('/posts/sorted','PostController@popularpost')->name('popularpost');
+Route::get('/posts/sorted_by', 'PostController@index')->name('sorted');
+
+

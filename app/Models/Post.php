@@ -27,6 +27,10 @@ class Post extends Model
 
   }
 
+    public function popularPost() {
+        return $this->hasMany(PostLike::class)->where('approved', 1)->orderBy('email');
+    }
+
 
 
 

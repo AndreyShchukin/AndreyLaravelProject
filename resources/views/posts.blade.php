@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
     <div class="container">
-        <span>Show the popular posts!</span><a class="sort_button" href="posts/sorted">Show</a>
+        <span>Show the popular posts!</span><a class="sort_button" href="posts"> Show</a>
         <div class="row">
             @foreach($posts as $post)
                 <div class="posts col-md-4">
