@@ -9,6 +9,6 @@ $factory->define(Post::class, function (Faker $faker) {
         return [
             'text' => $faker->text,
             'user_id' => random_int(1,100),
-            'image_path' => 'null',
+            'image' => 'null',
         ];
 });

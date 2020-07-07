@@ -1,7 +1,7 @@
 <?php
 namespace App\Services;
 
-
+use Illuminate\Http\Request;
 use App\Http\Requests\Post\StorePost;
 use App\Models\Comment;
 use App\Models\Post;
@@ -14,19 +14,20 @@ use Illuminate\Support\Facades\DB;
 class PostServices {
 
 
-    public function createPost($data, User $user, $image = null): Post
+    public function createPost($data, User $user, $request): Post
     {
         $post = new Post();
         $post->text = Arr::get($data, 'text');
         $post->user_id = $user->id;
+        $path = $request->file('image')->store('uploads', 'public');
+        $post->image = $path;
         $post->save();
-
         return $post;
     }
 
     public function getPosts(?User $user = null)
     {
-        $posts =  Post::query()->with('likes')->paginate(15);
+        $posts =  Post::query()->with('likes')->orderBy('created_at', 'desc')->paginate(15);
         foreach ($posts as &$post) {
             $count = 0;
             $iLiked = false;

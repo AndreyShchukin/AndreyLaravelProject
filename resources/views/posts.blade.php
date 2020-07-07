@@ -6,8 +6,8 @@
             @foreach($posts as $post)
                 <div class="posts col-md-4">
                     <div class="card post_card">
-                        @isset($path)
-                        <img class="card-img-top" src={{ asset('/storage/' . $path) }} alt="image">
+                        @isset($post['image'])
+                        <img class="card-img-top" src={{ asset('/storage/' . $post['image']) }} alt="image">
                         @endisset
                         <div class="card-body">
                             <p class="card-text">{{$post['text']}}</p>
@@ -54,10 +54,10 @@
                     </div>
                     <div>
                         <label for="exampleFormControlFile1">You can load your image</label>
-                        <input type="file" name="image" class="form-control-file" id="exampleFormControlFile1">
+                        <input class="form-control-file" type="file" name="image" id="exampleFormControlFile1">
                     </div>
                     <div>
-                        <button value="Submit" type="submit" class="btn btn-primary submitpost">Submit</button>
+                        <button value="Upload" type="submit" name="upload" class="btn btn-primary submitpost">Submit</button>
                     </div>
                 </form>
             </div>

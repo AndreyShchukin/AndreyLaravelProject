@@ -40,8 +40,8 @@ class PostController extends Controller
             $this->PostServices->createPost(
             $request->validated(),
             $request->user(),
-            $request->file('image')
-        );
+            $request
+            );
 
         return back();
     }
