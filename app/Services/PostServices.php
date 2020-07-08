@@ -27,7 +27,7 @@ class PostServices {
 
     public function getPosts(?User $user = null)
     {
-        $posts =  Post::query()->with('likes')->orderBy('created_at', 'desc')->paginate(15);
+        $posts = Post::withCount('likes')->orderBy('likes_count', 'desc')->paginate(15);
         foreach ($posts as &$post) {
             $count = 0;
             $iLiked = false;
@@ -72,14 +72,6 @@ class PostServices {
 
         return true;
     }
-
-    public function popular_post()
-    {
-        $posts =  Post::query()->with('likes')->paginate(15);
-
-    }
-
-
 
 
 }

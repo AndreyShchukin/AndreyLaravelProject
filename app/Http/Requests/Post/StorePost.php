@@ -25,7 +25,6 @@ class StorePost extends FormRequest
     {
         return [
             'text' => ['required', 'min:26', 'max:2048'],
-//            'image' => ['required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',]
         ];
     }
 
